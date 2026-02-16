@@ -23,7 +23,6 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(
@@ -34,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        final String userEmail;
+        final String userId;
 
         // Verifica se o header Authorization existe e começa com "Bearer "
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -44,11 +43,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // Extrai o token JWT (remove "Bearer ")
         jwt = authHeader.substring(7);
-        userEmail = jwtService.extractUsername(jwt);
+        userId = jwtService.extractUsername(jwt);
 
-        // Se conseguiu extrair o email e o usuário ainda não está autenticado
-        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+        // Se conseguiu extrair o userId e o usuário ainda não está autenticado
+        if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             // Valida o token
             if (jwtService.isTokenValid(jwt, userDetails.getUsername())) {

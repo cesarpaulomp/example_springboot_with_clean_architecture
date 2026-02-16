@@ -1,9 +1,9 @@
 package com.example.intranet.interfaces.controllers;
 
 import java.time.Instant;
-import java.util.List;
 
-import org.springframework.validation.annotation.Validated;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +19,7 @@ import com.example.intranet.application.ports.in.input.ListUserPostInput;
 import com.example.intranet.application.ports.out.output.PagedListOutput;
 import com.example.intranet.application.usecase.exception.RecordNotFoundException;
 import com.example.intranet.domain.model.Post;
+import com.example.intranet.interfaces.controllers.request.CreatePostRequest;
 
 import lombok.AllArgsConstructor;
 
@@ -30,8 +31,10 @@ public final class PostsController {
   private final GetPostUseCase getPostUseCase;
 
   @PostMapping(consumes = "application/json")
-  public Post createPost(@RequestBody @Validated CreatePostInput request) {
-    return createPostUseCase.createPost(request);
+  public Post createPost(@RequestBody CreatePostRequest request) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String userId = authentication.getName(); // Recupera o userId do token JWT
+    return createPostUseCase.createPost(new CreatePostInput(request.content(), userId));
   }
 
   @GetMapping

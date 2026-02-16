@@ -8,6 +8,6 @@ import com.example.intranet.infra.persistence.jpaEntity.JpaUser;
 import java.util.Optional;
 
 @Repository
-public interface JpaUserRepository extends JpaRepository<JpaUser, Long> {
+public interface JpaUserRepository extends JpaRepository<JpaUser, String> {
     Optional<JpaUser> findByEmail(String email);
 }

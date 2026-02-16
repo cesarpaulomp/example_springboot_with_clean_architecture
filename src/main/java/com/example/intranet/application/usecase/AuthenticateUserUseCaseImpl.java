@@ -29,6 +29,6 @@ public class AuthenticateUserUseCaseImpl implements AuthenticateUserUseCase {
             throw new UserAuthenticationFailException();
         }
 
-        return securityTokenGeneration.generateToken(request.email());
+        return securityTokenGeneration.generateToken(user.id());
     }
 }
