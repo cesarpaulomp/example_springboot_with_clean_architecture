@@ -1,0 +1,12 @@
+package com.example.intranet;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public final class IntranetApplication {
+
+  public static void main(String[] args) {
+    SpringApplication.run(IntranetApplication.class, args);
+  }
+}
