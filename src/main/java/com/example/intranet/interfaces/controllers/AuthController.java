@@ -1,7 +1,6 @@
 package com.example.intranet.interfaces.controllers;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +23,7 @@ public class AuthController {
     private final AuthenticateUserUseCase authenticateUserUseCase;
 
     @PostMapping(consumes = "application/json", value = "/signup")
-    public void createUser(@RequestBody @Validated CreateUserInput request) {
+    public void createUser(@RequestBody CreateUserInput request) {
         createUserUseCase.createUser(request);
     }
 
