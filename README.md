@@ -8,6 +8,7 @@ A practical example demonstrating Clean Architecture implementation using Java a
 - [Architecture Overview](#architecture-overview)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
+  - [API Documentation](#api-documentation)
 - [Design Decisions](#design-decisions)
 - [Advantages](#advantages)
 - [Disadvantages](#disadvantages)
@@ -87,6 +88,19 @@ mvn spring-boot:run
 
 The application will start on `http://localhost:8080`
 
+### API Documentation
+
+The application includes **Swagger UI** for interactive API documentation and testing:
+
+- **Swagger UI**: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+- **OpenAPI JSON**: [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
+
+#### Testing Authenticated Endpoints
+
+1. Use the `/auth/login` endpoint to obtain a JWT token
+2. Click the **"Authorize"** button in Swagger UI
+3. Enter the token and click **"Authorize"**
+4. Now you can test all protected endpoints
 
 ## 🎨 Design Decisions
 
@@ -156,6 +170,7 @@ Team members need to understand and follow architectural principles consistently
 - **Spring Security** (JWT authentication)
 - **Spring Data JPA**
 - **PostgreSQL**
+- **SpringDoc OpenAPI** (Swagger UI)
 - **Lombok**
 - **Maven**
 

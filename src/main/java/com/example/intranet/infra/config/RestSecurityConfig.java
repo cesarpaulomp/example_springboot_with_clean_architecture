@@ -25,6 +25,7 @@ public class RestSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // Desabilita CSRF para APIs REST
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll() // Login público
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // Swagger público
                         .anyRequest().authenticated() // Resto requer autenticação
                 )
                 .sessionManagement(session -> session
