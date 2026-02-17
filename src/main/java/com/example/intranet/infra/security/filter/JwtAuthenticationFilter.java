@@ -31,8 +31,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         final String authHeader = request.getHeader("Authorization");
-        final String jwt;
-        final String userId;
 
         // Verifica se o header Authorization existe e começa com "Bearer "
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -41,8 +39,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         // Extrai o token JWT (remove "Bearer ")
-        jwt = authHeader.substring(7);
-        UserInfo userInfo = jwtService.getUserInfo(jwt);
+        final var jwt = authHeader.substring(7);
+        final UserInfo userInfo = jwtService.getUserInfo(jwt);
 
         // Se conseguiu extrair o userId e o usuário ainda não está autenticado
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
