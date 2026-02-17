@@ -32,9 +32,7 @@ public final class PostsController {
 
   @PostMapping(consumes = "application/json")
   public Post createPost(@RequestBody CreatePostRequest request) {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    String userId = authentication.getName(); // Recupera o userId do token JWT
-    return createPostUseCase.createPost(new CreatePostInput(request.content(), userId));
+    return createPostUseCase.createPost(new CreatePostInput(request.content(), getUserId()));
   }
 
   @GetMapping
@@ -50,5 +48,10 @@ public final class PostsController {
   @GetMapping("/{id}")
   public Post getPostById(@PathVariable String id) throws RecordNotFoundException {
     return getPostUseCase.getPostById(id);
+  }
+
+  private String getUserId() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    return authentication.getPrincipal().toString();
   }
 }

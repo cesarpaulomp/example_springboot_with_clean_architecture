@@ -1,5 +1,7 @@
 package com.example.intranet.infra.security;
 
+import java.util.HashMap;
+
 import org.springframework.stereotype.Component;
 
 import com.example.intranet.application.ports.out.SecurityTokenGeneration;
@@ -16,7 +18,8 @@ public class SecurityTokenGenerationAdapter implements SecurityTokenGeneration {
 
     @Override
     public SecurityTokenOutput generateToken(String username) {
-        return new SecurityTokenOutput(jwtService.generateToken(username), jwtService.getJwtExpiration());
+        return new SecurityTokenOutput(jwtService.generateToken(new HashMap<>(), username),
+                jwtService.getJwtExpiration());
     }
-    
+
 }

@@ -27,10 +27,4 @@ public class JpaUserRepositoryAdapter implements UserRepository {
             null);
         return Optional.ofNullable(userMapper.toDomain(jpaUser));
     }
-
-    @Override
-    public Optional<User> findById(String id) {
-        var jpaUser = jpaUserRepository.findById(id).orElse(null);
-        return Optional.ofNullable(userMapper.toDomain(jpaUser));
-    }
 }
